@@ -7,12 +7,14 @@ Public Class Personne
     Private _Etat As Statut_Infection
     Private _Pos_Domicile As SFML.System.Vector2i
     Private _Immunite As Boolean
+    Private _Logs As List(Of String)
 
     Private _Delta As SFML.System.Vector2i = Nothing
 
     Private _Game As Game
 
     Public Event Etat_Change As EventHandler
+    Public Event Log_Change As EventHandler
 
     Public Sub New(ByVal Id As Integer, ByVal InitPos As SFML.System.Vector2i, ByRef Game As Game)
         _Id = Id
@@ -21,6 +23,7 @@ Public Class Personne
         _Pos_Domicile = _Pos
         _Game = Game
         _Immunite = False
+        _Logs = New List(Of String)
     End Sub
 
     Public Sub Move(ByVal NewPos As Vector2i)
@@ -54,6 +57,11 @@ Public Class Personne
         _Pos = New Vector2i(X, Y)
         _Delta = New Vector2i(Delta.X, Delta.Y)
 
+    End Sub
+
+    Public Sub Add_Log(ByVal Str As String)
+        _Logs.Add(Str)
+        RaiseEvent Log_Change(Me, New EventArgs)
     End Sub
 
     Public Property Pos As Vector2i
@@ -112,6 +120,12 @@ Public Class Personne
             _Immunite = value
             RaiseEvent Etat_Change(Me, New EventArgs)
         End Set
+    End Property
+
+    Public ReadOnly Property Logs As List(Of String)
+        Get
+            Return _Logs
+        End Get
     End Property
 
 End Class

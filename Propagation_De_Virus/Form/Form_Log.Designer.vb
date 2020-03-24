@@ -41,6 +41,7 @@ Partial Class Form_Log
         'ListBox_Log_TexteLog
         '
         Me.ListBox_Log_TexteLog.FormattingEnabled = True
+        Me.ListBox_Log_TexteLog.HorizontalScrollbar = True
         Me.ListBox_Log_TexteLog.ItemHeight = 16
         Me.ListBox_Log_TexteLog.Location = New System.Drawing.Point(16, 12)
         Me.ListBox_Log_TexteLog.Name = "ListBox_Log_TexteLog"

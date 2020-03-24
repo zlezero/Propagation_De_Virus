@@ -167,7 +167,9 @@ Public Class Game
     End Sub
 
     Private Sub Log_Add_Status_Switch(ByVal Id As Integer, ByVal OldStatut As Statut_Infection, ByVal NewStatut As Statut_Infection)
-        _Log.Add("Personne " + CType(Id, String) + " est passée de " + OldStatut.ToString() + " à " + NewStatut.ToString())
+        Dim Str As String = "Personne " + CType(Id, String) + " est passée de " + OldStatut.ToString() + " à " + NewStatut.ToString()
+        _Log.Add(Str)
+        _Population(Id).Add_Log(Str)
         Raise_Log_Modife()
     End Sub
 
@@ -273,4 +275,5 @@ Public Class Game
             _Parametres = value
         End Set
     End Property
+
 End Class

@@ -28,6 +28,7 @@ Partial Class Form_Personne
         Me.Label_Personne_PositionDomicile = New System.Windows.Forms.Label()
         Me.Label_Personne_Etat = New System.Windows.Forms.Label()
         Me.Label_Personne_Position = New System.Windows.Forms.Label()
+        Me.Button_Personne_ViewLogs = New System.Windows.Forms.Button()
         Me.GroupBox_Personne_Informations.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -91,11 +92,21 @@ Partial Class Form_Personne
         Me.Label_Personne_Position.TabIndex = 1
         Me.Label_Personne_Position.Text = "Position :"
         '
+        'Button_Personne_ViewLogs
+        '
+        Me.Button_Personne_ViewLogs.Location = New System.Drawing.Point(12, 205)
+        Me.Button_Personne_ViewLogs.Name = "Button_Personne_ViewLogs"
+        Me.Button_Personne_ViewLogs.Size = New System.Drawing.Size(275, 26)
+        Me.Button_Personne_ViewLogs.TabIndex = 2
+        Me.Button_Personne_ViewLogs.Text = "Voir les logs associés"
+        Me.Button_Personne_ViewLogs.UseVisualStyleBackColor = True
+        '
         'Form_Personne
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(299, 216)
+        Me.ClientSize = New System.Drawing.Size(299, 241)
+        Me.Controls.Add(Me.Button_Personne_ViewLogs)
         Me.Controls.Add(Me.GroupBox_Personne_Informations)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -115,4 +126,5 @@ Partial Class Form_Personne
     Friend WithEvents Label_Personne_Etat As Label
     Friend WithEvents Label_Personne_PositionDomicile As Label
     Friend WithEvents Label_Personne_Immunise As Label
+    Friend WithEvents Button_Personne_ViewLogs As Button
 End Class

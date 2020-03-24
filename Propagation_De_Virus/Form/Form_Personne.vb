@@ -10,6 +10,10 @@
     Private Sub Form_Personne_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Load_GUI()
     End Sub
+    Private Sub Button_Personne_ViewLogs_Click(sender As Object, e As EventArgs) Handles Button_Personne_ViewLogs.Click
+        Dim FormLogs As New Form_Personne_Logs(_Personne)
+        FormLogs.Show(Me)
+    End Sub
 
     Private Sub Load_GUI()
         Label_Personne_ID.Text = "ID : " + _Personne.Id.ToString()
