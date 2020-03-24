@@ -14,6 +14,7 @@
     Private _Zone_Infection As Integer
     Private _Rayon As Integer
     Private _Amplitude_Deplacement As Integer
+    Private _TaillePop As Integer
 
     Public Sub New()
         Load_Default_Value()
@@ -32,6 +33,7 @@
         _Zone_Infection = 10
         _Rayon = 1
         _Amplitude_Deplacement = 10
+        _TaillePop = 1000
 
     End Sub
 
@@ -125,4 +127,12 @@
         End Set
     End Property
 
+    Public Property TaillePop As Integer
+        Get
+            Return _TaillePop
+        End Get
+        Set(value As Integer)
+            _TaillePop = value
+        End Set
+    End Property
 End Class

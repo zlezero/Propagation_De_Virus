@@ -19,7 +19,7 @@ Public Class Form_Log
             End If
 
             If _Game IsNot Nothing Then
-                If _Game.Pause Then
+                If _Game.Pause Or ListBox_Log_TexteLog.Items.Count = 0 Then
                     Show_Full_Log()
                 End If
             End If

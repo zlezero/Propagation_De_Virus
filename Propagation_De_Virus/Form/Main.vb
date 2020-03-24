@@ -43,7 +43,7 @@
 #Region "Control Event"
     Private Sub Button_Main_Launch_Click(sender As Object, e As EventArgs) Handles Button_Main_Launch.Click
 
-        _Jeu = New Game(Panel_Main_Render.Width, Panel_Main_Render.Height, _Parametres, 1000)
+        _Jeu = New Game(Panel_Main_Render.Width, Panel_Main_Render.Height, _Parametres)
 
         RaiseEvent Simulation_Lancee(Me, New EventArgs)
 

@@ -24,11 +24,11 @@ Public Class Game
         RaiseEvent Log_Modifie(Me, e)
     End Sub
 
-    Public Sub New(ByVal Largeur As Integer, ByVal Hauteur As Integer, ByRef Parametres As Parametres, ByVal TaillePop As Integer)
+    Public Sub New(ByVal Largeur As Integer, ByVal Hauteur As Integer, ByRef Parametres As Parametres)
 
         _Largeur = Largeur
         _Hauteur = Hauteur
-        _TaillePop = TaillePop
+        _TaillePop = Parametres.TaillePop
 
         _Parametres = Parametres
 
