@@ -45,9 +45,13 @@ Partial Class Form_Options
         Me.Label_Options_ZoneInfection = New System.Windows.Forms.Label()
         Me.CheckBox_Options_Confinement = New System.Windows.Forms.CheckBox()
         Me.GroupBox_Options_ProbaGuerison = New System.Windows.Forms.GroupBox()
-        Me.ListBox_Options_ProbaGuerisons_Etat = New System.Windows.Forms.ListBox()
-        Me.NumericUpDown_Options_ProbaGuerison = New System.Windows.Forms.NumericUpDown()
         Me.Label_Options_ProbaGuerison = New System.Windows.Forms.Label()
+        Me.NumericUpDown_Options_ProbaGuerison = New System.Windows.Forms.NumericUpDown()
+        Me.ListBox_Options_ProbaGuerisons_Etat = New System.Windows.Forms.ListBox()
+        Me.Label_Options_VitesseSimulation = New System.Windows.Forms.Label()
+        Me.NumericUpDown_Options_VitesseSimulation = New System.Windows.Forms.NumericUpDown()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox_Options_ShowGraphics = New System.Windows.Forms.CheckBox()
         Me.GroupBox_Options_Proba.SuspendLayout()
         CType(Me.NumericUpDown_Options_ProbaMort, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown_Options_ProbaComplications, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -61,14 +65,16 @@ Partial Class Form_Options
         CType(Me.NumericUpDown_Options_ZoneInfection, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox_Options_ProbaGuerison.SuspendLayout()
         CType(Me.NumericUpDown_Options_ProbaGuerison, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown_Options_VitesseSimulation, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button_Options_ResetDefault
         '
-        Me.Button_Options_ResetDefault.Location = New System.Drawing.Point(289, 217)
+        Me.Button_Options_ResetDefault.Location = New System.Drawing.Point(288, 368)
         Me.Button_Options_ResetDefault.Margin = New System.Windows.Forms.Padding(4)
         Me.Button_Options_ResetDefault.Name = "Button_Options_ResetDefault"
-        Me.Button_Options_ResetDefault.Size = New System.Drawing.Size(329, 28)
+        Me.Button_Options_ResetDefault.Size = New System.Drawing.Size(330, 28)
         Me.Button_Options_ResetDefault.TabIndex = 0
         Me.Button_Options_ResetDefault.Text = "Restaurer les paramètres initiaux"
         Me.Button_Options_ResetDefault.UseVisualStyleBackColor = True
@@ -292,15 +298,14 @@ Partial Class Form_Options
         Me.GroupBox_Options_ProbaGuerison.TabStop = False
         Me.GroupBox_Options_ProbaGuerison.Text = "Probabilités guérison"
         '
-        'ListBox_Options_ProbaGuerisons_Etat
+        'Label_Options_ProbaGuerison
         '
-        Me.ListBox_Options_ProbaGuerisons_Etat.FormattingEnabled = True
-        Me.ListBox_Options_ProbaGuerisons_Etat.HorizontalScrollbar = True
-        Me.ListBox_Options_ProbaGuerisons_Etat.ItemHeight = 16
-        Me.ListBox_Options_ProbaGuerisons_Etat.Location = New System.Drawing.Point(6, 24)
-        Me.ListBox_Options_ProbaGuerisons_Etat.Name = "ListBox_Options_ProbaGuerisons_Etat"
-        Me.ListBox_Options_ProbaGuerisons_Etat.Size = New System.Drawing.Size(173, 148)
-        Me.ListBox_Options_ProbaGuerisons_Etat.TabIndex = 0
+        Me.Label_Options_ProbaGuerison.AutoSize = True
+        Me.Label_Options_ProbaGuerison.Location = New System.Drawing.Point(189, 49)
+        Me.Label_Options_ProbaGuerison.Name = "Label_Options_ProbaGuerison"
+        Me.Label_Options_ProbaGuerison.Size = New System.Drawing.Size(129, 16)
+        Me.Label_Options_ProbaGuerison.TabIndex = 4
+        Me.Label_Options_ProbaGuerison.Text = "Probabilité de l'état :"
         '
         'NumericUpDown_Options_ProbaGuerison
         '
@@ -312,20 +317,63 @@ Partial Class Form_Options
         Me.NumericUpDown_Options_ProbaGuerison.Size = New System.Drawing.Size(72, 22)
         Me.NumericUpDown_Options_ProbaGuerison.TabIndex = 3
         '
-        'Label_Options_ProbaGuerison
+        'ListBox_Options_ProbaGuerisons_Etat
         '
-        Me.Label_Options_ProbaGuerison.AutoSize = True
-        Me.Label_Options_ProbaGuerison.Location = New System.Drawing.Point(189, 49)
-        Me.Label_Options_ProbaGuerison.Name = "Label_Options_ProbaGuerison"
-        Me.Label_Options_ProbaGuerison.Size = New System.Drawing.Size(129, 16)
-        Me.Label_Options_ProbaGuerison.TabIndex = 4
-        Me.Label_Options_ProbaGuerison.Text = "Probabilité de l'état :"
+        Me.ListBox_Options_ProbaGuerisons_Etat.FormattingEnabled = True
+        Me.ListBox_Options_ProbaGuerisons_Etat.HorizontalScrollbar = True
+        Me.ListBox_Options_ProbaGuerisons_Etat.ItemHeight = 16
+        Me.ListBox_Options_ProbaGuerisons_Etat.Location = New System.Drawing.Point(6, 24)
+        Me.ListBox_Options_ProbaGuerisons_Etat.Name = "ListBox_Options_ProbaGuerisons_Etat"
+        Me.ListBox_Options_ProbaGuerisons_Etat.Size = New System.Drawing.Size(173, 148)
+        Me.ListBox_Options_ProbaGuerisons_Etat.TabIndex = 0
+        '
+        'Label_Options_VitesseSimulation
+        '
+        Me.Label_Options_VitesseSimulation.AutoSize = True
+        Me.Label_Options_VitesseSimulation.Enabled = False
+        Me.Label_Options_VitesseSimulation.Location = New System.Drawing.Point(15, 36)
+        Me.Label_Options_VitesseSimulation.Name = "Label_Options_VitesseSimulation"
+        Me.Label_Options_VitesseSimulation.Size = New System.Drawing.Size(155, 16)
+        Me.Label_Options_VitesseSimulation.TabIndex = 4
+        Me.Label_Options_VitesseSimulation.Text = "Vitesse de la simulation :"
+        '
+        'NumericUpDown_Options_VitesseSimulation
+        '
+        Me.NumericUpDown_Options_VitesseSimulation.Enabled = False
+        Me.NumericUpDown_Options_VitesseSimulation.Increment = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.NumericUpDown_Options_VitesseSimulation.Location = New System.Drawing.Point(176, 33)
+        Me.NumericUpDown_Options_VitesseSimulation.Name = "NumericUpDown_Options_VitesseSimulation"
+        Me.NumericUpDown_Options_VitesseSimulation.Size = New System.Drawing.Size(72, 22)
+        Me.NumericUpDown_Options_VitesseSimulation.TabIndex = 5
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.CheckBox_Options_ShowGraphics)
+        Me.GroupBox1.Controls.Add(Me.NumericUpDown_Options_VitesseSimulation)
+        Me.GroupBox1.Controls.Add(Me.Label_Options_VitesseSimulation)
+        Me.GroupBox1.Location = New System.Drawing.Point(288, 207)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(330, 154)
+        Me.GroupBox1.TabIndex = 6
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Options générales"
+        '
+        'CheckBox_Options_ShowGraphics
+        '
+        Me.CheckBox_Options_ShowGraphics.AutoSize = True
+        Me.CheckBox_Options_ShowGraphics.Location = New System.Drawing.Point(18, 69)
+        Me.CheckBox_Options_ShowGraphics.Name = "CheckBox_Options_ShowGraphics"
+        Me.CheckBox_Options_ShowGraphics.Size = New System.Drawing.Size(224, 20)
+        Me.CheckBox_Options_ShowGraphics.TabIndex = 6
+        Me.CheckBox_Options_ShowGraphics.Text = "Afficher graphiquement le résultat"
+        Me.CheckBox_Options_ShowGraphics.UseVisualStyleBackColor = True
         '
         'Form_Options
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(637, 408)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.GroupBox_Options_ProbaGuerison)
         Me.Controls.Add(Me.GroupBox_Options_Constantes)
         Me.Controls.Add(Me.GroupBox_Options_Proba)
@@ -352,6 +400,9 @@ Partial Class Form_Options
         Me.GroupBox_Options_ProbaGuerison.ResumeLayout(False)
         Me.GroupBox_Options_ProbaGuerison.PerformLayout()
         CType(Me.NumericUpDown_Options_ProbaGuerison, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown_Options_VitesseSimulation, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -382,4 +433,8 @@ Partial Class Form_Options
     Friend WithEvents ListBox_Options_ProbaGuerisons_Etat As ListBox
     Friend WithEvents Label_Options_ProbaGuerison As Label
     Friend WithEvents NumericUpDown_Options_ProbaGuerison As NumericUpDown
+    Friend WithEvents Label_Options_VitesseSimulation As Label
+    Friend WithEvents NumericUpDown_Options_VitesseSimulation As NumericUpDown
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents CheckBox_Options_ShowGraphics As CheckBox
 End Class

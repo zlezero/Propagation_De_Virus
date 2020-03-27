@@ -16,6 +16,9 @@
     Private _Amplitude_Deplacement As Integer
     Private _TaillePop As Integer
 
+    Private _VitesseSimulation As Integer
+    Private _ShowGraphics As Boolean
+
     Public Sub New()
         Load_Default_Value()
     End Sub
@@ -34,6 +37,9 @@
         _Rayon = 1
         _Amplitude_Deplacement = 10
         _TaillePop = 1000
+
+        _VitesseSimulation = 100
+        _ShowGraphics = True
 
     End Sub
 
@@ -135,4 +141,23 @@
             _TaillePop = value
         End Set
     End Property
+
+    Public Property VitesseSimulation As Integer
+        Get
+            Return _VitesseSimulation
+        End Get
+        Set(value As Integer)
+            _VitesseSimulation = value
+        End Set
+    End Property
+
+    Public Property ShowGraphics As Boolean
+        Get
+            Return _ShowGraphics
+        End Get
+        Set(value As Boolean)
+            _ShowGraphics = value
+        End Set
+    End Property
+
 End Class

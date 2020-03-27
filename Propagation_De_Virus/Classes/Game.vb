@@ -6,7 +6,6 @@ Public Class Game
     Private _Hauteur As Integer
 
     Private _Population As List(Of Personne)
-    Private _TaillePop As Integer
     Private _Compteurs As New Dictionary(Of Statut_Infection, Integer)
     Private _Correspondance_Compteurs_Label As New Dictionary(Of Statut_Infection, Label) From {{Statut_Infection.NON_INFECTE, Main.Label_Main_Compteurs_Valeur_NI}, {Statut_Infection.INFECTE_ASYMPTOTIQUE, Main.Label_Main_Compteurs_Valeur_A}, {Statut_Infection.INFECTE_SYMPTOMATIQUE_NH, Main.Label_Main_Compteurs_Valeur_SNH}, {Statut_Infection.INFECTE_SYMPTOMATIQUE_H_FAIBLE, Main.Label_Main_Compteurs_Valeur_SHFa}, {Statut_Infection.INFECTE_SYMPTOMATIQUE_H_FORT, Main.Label_Main_Compteurs_Valeur_SHFo}, {Statut_Infection.INFECTE_DECEDE, Main.Label_Main_Compteurs_Valeur_Deces}}
 
@@ -28,7 +27,6 @@ Public Class Game
 
         _Largeur = Largeur
         _Hauteur = Hauteur
-        _TaillePop = Parametres.TaillePop
 
         _Parametres = Parametres
 
@@ -52,11 +50,11 @@ Public Class Game
 
         _Population = New List(Of Personne)
 
-        For I As Integer = 0 To _TaillePop
+        For I As Integer = 0 To _Parametres.TaillePop
             _Population.Add(New Personne(I, New SFML.System.Vector2i(Rand.Next(0, Largeur), Rand.Next(0, Hauteur)), Me))
         Next
 
-        _Compteurs(Statut_Infection.NON_INFECTE) = _TaillePop - 1
+        _Compteurs(Statut_Infection.NON_INFECTE) = _Parametres.TaillePop - 1
 
         Dim Patient0 As Integer = CInt((_Population.Count + 1) * Rand.NextDouble())
 
@@ -177,6 +175,12 @@ Public Class Game
         RaiseEvent Log_Modifie(Me, New System.EventArgs)
     End Sub
 
+    Public Sub Add_Infecte(ByVal Position As SFML.System.Vector2i)
+        _Population.Add(New Personne(_Population.Last.Id, Position, Me))
+        _Population.Last().Etat = Statut_Infection.INFECTE_ASYMPTOTIQUE
+        _Compteurs(Statut_Infection.INFECTE_ASYMPTOTIQUE) += 1
+    End Sub
+
     Public Property Largeur As Integer
         Get
             Return _Largeur
@@ -192,15 +196,6 @@ Public Class Game
         End Get
         Set(value As Integer)
             _Hauteur = value
-        End Set
-    End Property
-
-    Public Property TaillePop As Integer
-        Get
-            Return _TaillePop
-        End Get
-        Set(value As Integer)
-            _TaillePop = value
         End Set
     End Property
 

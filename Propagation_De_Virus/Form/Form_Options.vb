@@ -38,6 +38,10 @@
 
         ListBox_Options_ProbaGuerisons_Etat.SelectedIndex = 0
 
+        'Vitesse Simu
+        NumericUpDown_Options_VitesseSimulation.Value = _Options.VitesseSimulation
+        CheckBox_Options_ShowGraphics.Checked = _Options.ShowGraphics
+
     End Sub
 
     Private Sub Button_Options_ResetDefault_Click(sender As Object, e As EventArgs) Handles Button_Options_ResetDefault.Click
@@ -45,7 +49,7 @@
         Load_GUI()
     End Sub
 
-    Private Sub NumericUpDown_Options_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown_Options_ProbaInfections.ValueChanged, NumericUpDown_Options_ProbaSymptomes.ValueChanged, NumericUpDown_Options_ProbaHopital.ValueChanged, NumericUpDown_Options_ProbaInfections.ValueChanged, NumericUpDown_Options_ProbaMort.ValueChanged, NumericUpDown_Options_ZoneInfection.ValueChanged, NumericUpDown_Options_Rayon.ValueChanged, NumericUpDown_Options_Amplitude.ValueChanged, NumericUpDown_Options_TaillePop.ValueChanged
+    Private Sub NumericUpDown_Options_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown_Options_ProbaInfections.ValueChanged, NumericUpDown_Options_ProbaSymptomes.ValueChanged, NumericUpDown_Options_ProbaHopital.ValueChanged, NumericUpDown_Options_ProbaInfections.ValueChanged, NumericUpDown_Options_ProbaMort.ValueChanged, NumericUpDown_Options_ZoneInfection.ValueChanged, NumericUpDown_Options_Rayon.ValueChanged, NumericUpDown_Options_Amplitude.ValueChanged, NumericUpDown_Options_TaillePop.ValueChanged, NumericUpDown_Options_VitesseSimulation.ValueChanged
 
         Select Case CType(sender, NumericUpDown).GetHashCode
             Case NumericUpDown_Options_ProbaInfections.GetHashCode
@@ -66,6 +70,8 @@
                 _Options.Amplitude_Deplacement = NumericUpDown_Options_Amplitude.Value
             Case NumericUpDown_Options_TaillePop.GetHashCode
                 _Options.TaillePop = NumericUpDown_Options_TaillePop.Value
+            Case NumericUpDown_Options_VitesseSimulation.GetHashCode
+                _Options.VitesseSimulation = NumericUpDown_Options_VitesseSimulation.Value
         End Select
 
     End Sub
@@ -84,6 +90,10 @@
         If ListBox_Options_ProbaGuerisons_Etat.SelectedIndex <> -1 Then
             _Options.Proba_Guerison(ListBox_Options_ProbaGuerisons_Etat.SelectedIndex + 1) = NumericUpDown_Options_ProbaGuerison.Value
         End If
+    End Sub
+
+    Private Sub CheckBox_Options_ShowGraphics_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox_Options_ShowGraphics.CheckedChanged
+        _Options.ShowGraphics = CheckBox_Options_ShowGraphics.Checked
     End Sub
 
 End Class

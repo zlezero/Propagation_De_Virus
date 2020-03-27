@@ -1,4 +1,7 @@
-﻿Public Class Main
+﻿Imports SFML.System
+Imports SFML.Window
+
+Public Class Main
 
     Private WithEvents _RenderWindow As SFML.Graphics.RenderWindow
     Private _Thread_Graphics As Threading.Thread
@@ -11,10 +14,14 @@
 
     Private _OptionsForm As Form_Options = Nothing
 
+    Private _LastClickTime As Date = Nothing
+
     Public Event Simulation_Lancee As EventHandler
     Public Event Simulation_Pause As EventHandler
     Public Event Simultation_Unpause As EventHandler
 
+    Delegate Sub dMajGuiCompteur()
+    Delegate Sub dNewFormPersonne(ByRef Personne As Personne)
 
 #Region "Window Event"
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -73,11 +80,17 @@
     End Sub
 
     Private Sub Button_Main_Stop_Click(sender As Object, e As EventArgs) Handles Button_Main_Stop.Click
+
+        If _Jeu.Pause Then
+            Button_Main_Pause.Text = "Pause"
+        End If
+
         _Jeu.Quitter = True
         Button_Main_Launch.Enabled = True
         Button_Main_Pause.Enabled = False
         Button_Main_Stop.Enabled = False
         Button_Main_SimulateOneTurn.Enabled = False
+
     End Sub
 
     Private Sub Button_Main_SimulateOneTurn_Click(sender As Object, e As EventArgs) Handles Button_Main_SimulateOneTurn.Click
@@ -110,8 +123,6 @@
         _RenderWindow.SetKeyRepeatEnabled(False)
     End Sub
 
-    Delegate Sub dMajGuiCompteur()
-
 #End Region
 
 #Region "Graphics"
@@ -124,12 +135,14 @@
                 Me.Invoke(New dMajGuiCompteur(AddressOf Maj_GUI_Compteur))
             End If
 
-            Draw_Graphics()
-            _RenderWindow.Display()
-            _RenderWindow.Clear()
+            If _Parametres.ShowGraphics Then
+                Draw_Graphics()
+                _RenderWindow.Display()
+                _RenderWindow.Clear()
+            End If
 
             _RenderWindow.DispatchEvents()
-            Threading.Thread.Sleep(1)
+            Threading.Thread.Sleep(0.01)
 
             If _Jeu.Quitter Then
                 _RenderWindow.Clear()
@@ -176,6 +189,38 @@
 
     Public Sub Clear_Screen()
         _RenderWindow.Clear()
+    End Sub
+
+    Private Sub Mouse_Click(ByVal sender As Object, ByVal e As MouseButtonEventArgs) Handles _RenderWindow.MouseButtonPressed
+
+        If _Jeu.Pause = True And e.Button = Mouse.Button.Left Then
+
+            Dim TimeNow As Date = Date.Now
+            Dim MousePosition As Vector2i = Mouse.GetPosition(_RenderWindow)
+
+            If _LastClickTime <> Nothing AndAlso TimeNow.Subtract(_LastClickTime).Milliseconds < 350 Then
+                _Jeu.Add_Infecte(MousePosition)
+                'MsgBox("Infecté ajouté !")
+            Else
+
+                For Each Personne In _Jeu.Population
+                    If (Personne.Pos.X <= MousePosition.X + 3 And Personne.Pos.X >= MousePosition.X - 3) And (Personne.Pos.Y <= MousePosition.Y + 3 And Personne.Pos.Y >= MousePosition.Y - 3) Then
+                        Me.Invoke(New dNewFormPersonne(AddressOf New_FormPersonne), Personne)
+                        Exit For
+                    End If
+                Next
+
+            End If
+
+            _LastClickTime = Date.Now
+
+        End If
+
+    End Sub
+
+    Private Sub New_FormPersonne(ByRef Personne As Personne)
+        Dim Form_Pers As New Form_Personne(Personne)
+        Form_Pers.Show(Me)
     End Sub
 
 

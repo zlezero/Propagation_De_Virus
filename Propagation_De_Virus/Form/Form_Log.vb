@@ -59,11 +59,18 @@ Public Class Form_Log
     End Sub
 
     Private Sub Show_Full_Log()
+
         Clear_Log()
-        For Each ligneLog In _Game.Log
+
+        Dim TempLogs As New List(Of String)
+        _Game.Log.AddRange(TempLogs)
+
+        For Each ligneLog In TempLogs
             ListBox_Log_TexteLog.Items.Add(ligneLog)
         Next
+
         ListBox_Log_TexteLog.TopIndex = ListBox_Log_TexteLog.Items.Count - 1
+
     End Sub
 
     Private Sub Update_Log()
