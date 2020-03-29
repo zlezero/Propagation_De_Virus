@@ -62,10 +62,7 @@ Public Class Form_Log
 
         Clear_Log()
 
-        Dim TempLogs As New List(Of String)
-        _Game.Log.AddRange(TempLogs)
-
-        For Each ligneLog In TempLogs
+        For Each ligneLog In _Game.Log
             ListBox_Log_TexteLog.Items.Add(ligneLog)
         Next
 

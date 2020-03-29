@@ -1,5 +1,5 @@
 ﻿Imports System.Random
-
+Imports System.Threading
 Public Class Game
 
     Private _Largeur As Integer
@@ -68,6 +68,30 @@ Public Class Game
         _Compteurs(CompteurEtat.ToString) = NouvelleValeur
     End Sub
 
+    Private Sub Thread_Computing(ByRef Personne As Personne, ByVal MinRange As Integer, ByVal MaxRange As Integer)
+
+        Dim Rand As New Random()
+        Dim MinRangeLocal As Integer = MinRange
+        Dim MaxRangeLocal = MaxRange
+
+        For I As Integer = MinRangeLocal To MaxRangeLocal
+
+            Dim Personne2 As Personne = _Population(I)
+
+            If Personne2.Etat = Statut_Infection.INFECTE_ASYMPTOTIQUE Then
+
+                Dim distancePersonne As Integer = Math.Pow(Personne2.Pos.X - Personne.Pos.X, 2) + Math.Pow(Personne2.Pos.Y - Personne.Pos.Y, 2)
+
+                If (distancePersonne <= Math.Pow(_Parametres.Zone_Infection, 2) And Rand.NextDouble() < _Parametres.Proba_Infection) Then
+                    Personne.Immunite = True
+                    Personne.Etat = Statut_Infection.INFECTE_ASYMPTOTIQUE
+                End If
+
+            End If
+        Next
+
+    End Sub
+
     Public Sub Next_Turn()
 
         Dim DX As Integer = 0
@@ -83,15 +107,58 @@ Public Class Game
             DY = _Parametres.Amplitude_Deplacement * (-1 + 2 * Rand.NextDouble())
 
             If personne.Etat = Statut_Infection.NON_INFECTE And Not personne.Immunite Then
-                For Each personne2 In _Population
-                    If personne2.Etat = Statut_Infection.INFECTE_ASYMPTOTIQUE Then
-                        Dim distancePersonne As Integer = Math.Pow(personne2.Pos.X - personne.Pos.X, 2) + Math.Pow(personne2.Pos.Y - personne.Pos.Y, 2)
-                        If (distancePersonne <= Math.Pow(_Parametres.Zone_Infection, 2) And Rand.NextDouble() < _Parametres.Proba_Infection) Then
-                            personne.Immunite = True
-                            personne.Etat = Statut_Infection.INFECTE_ASYMPTOTIQUE
+
+
+                Dim UseThread As Boolean = False
+
+                If UseThread Then
+
+                    Dim NbrThreads As Integer = 1
+                    Dim ListeThreads As New List(Of Threading.Thread)
+                    Dim ListeRanges As New Dictionary(Of Integer, Integer())
+
+
+                    Dim DivisionResult As Integer = CType(_Population.Count / NbrThreads, Integer)
+
+                    Dim MinRange As Integer = 0
+                    Dim MaxRange As Integer = DivisionResult
+
+                    For I As Integer = 0 To (NbrThreads - 1)
+
+                        Dim LocalI As Integer = I
+
+                        ListeRanges.Add(I, {MinRange, MaxRange})
+
+                        ListeThreads.Add(New Thread(Sub() Thread_Computing(personne, ListeRanges(LocalI)(0), ListeRanges(LocalI)(1))))
+                        ListeThreads.Last.Name = "Thread traitement collisions " + I.ToString()
+                        ListeThreads.Last.Start()
+
+                        MinRange += DivisionResult
+                        MaxRange += DivisionResult
+
+                    Next
+
+                    For Each thread In ListeThreads
+                        thread.Join()
+                    Next
+
+                Else
+
+                    For Each personne2 In _Population
+                        If personne2.Etat = Statut_Infection.INFECTE_ASYMPTOTIQUE Then
+
+                            Dim distancePersonne As Integer = Math.Pow(personne2.Pos.X - personne.Pos.X, 2) + Math.Pow(personne2.Pos.Y - personne.Pos.Y, 2)
+                            If (distancePersonne <= Math.Pow(_Parametres.Zone_Infection, 2) And Rand.NextDouble() < _Parametres.Proba_Infection) Then
+                                personne.Immunite = True
+                                personne.Etat = Statut_Infection.INFECTE_ASYMPTOTIQUE
+                            End If
+
+
                         End If
-                    End If
-                Next
+                    Next
+
+                End If
+
             End If
 
             If personne.Etat = Statut_Infection.INFECTE_DECEDE Then
